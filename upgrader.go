@@ -25,7 +25,7 @@ func initUpgrader() {
 }
 
 // 升级websocket，生成id
-func (u wu) Upgrade(handle func([]byte), w http.ResponseWriter, r *http.Request, responseHeader http.Header) (*WsConnOb, error) {
+func (u wu) Upgrade(w http.ResponseWriter, r *http.Request, responseHeader http.Header) (*WsConnOb, error) {
 
 	socket, err := u.Upgrader.Upgrade(w, r, responseHeader)
 	if err != nil {
@@ -37,13 +37,14 @@ func (u wu) Upgrade(handle func([]byte), w http.ResponseWriter, r *http.Request,
 		connect:   socket,
 		inChan:    make(chan []byte, config.WS.InChanLength),
 		outChan:   make(chan SendOb, config.WS.OutChanLength),
-		handle:    handle,
 		closeChan: make(chan struct{}),
 	}
 
+	redisCtl.SetHost(wsId, os.GetEnv("HOSTNAME"))
 	go connOb.processLoop()
 	go connOb.writeLoop()
 	go connOb.readLoop()
+
 	conn[wsId] = &connOb
 	return &connOb, err
 }

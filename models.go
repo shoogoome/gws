@@ -52,7 +52,7 @@ type WsConnOb struct {
 	connect   *websocket.Conn
 	inChan    chan []byte
 	outChan   chan SendOb
-	handle    func([]byte) // 读取消息处理方法
+	handle    func([]byte, interface{}) // 读取消息处理方法
 	closeChan chan struct{}
 	mutex     sync.Mutex
 	isClosed  bool
