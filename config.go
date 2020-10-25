@@ -5,7 +5,7 @@ import "time"
 var config Config
 
 func init() {
-	config = Config{
+	SetConfig(Config{
 		WS: WsConfig{
 			Port:            80,
 			ReadBufferSize:  1024,
@@ -21,9 +21,16 @@ func init() {
 			Host: "127.0.0.1:2379",
 			Db:   0,
 		},
-	}
+	})
 }
 
 func SetConfig(c Config) {
 	config = c
+	initUpgrader()
+	initRedis()
+}
+
+func SetRedis(r RedisConfig) {
+	config.Redis = r
+	initRedis()
 }

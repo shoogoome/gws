@@ -38,7 +38,7 @@ func (r *redisPool) SetHost(id string, host string) {
 	po.Do("set", fmt.Sprintf(dnsKey, id), host)
 }
 
-func init() {
+func initRedis() {
 	redisCtl = redisPool{
 		pool: &redis.Pool{
 			MaxIdle:     3,
