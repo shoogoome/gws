@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-const url = "http://%s:%d/pass"
+const url = "http://%s:%d/ws/pass"
 
 func requests(host string, ob SendOb) (sendResponse, error) {
 	// 跳过认证
