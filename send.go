@@ -26,3 +26,16 @@ func (w *WsConnOb) BatchSend(raw []byte, ids []string, dbRaw ...[]byte) {
 		w.outChan <- s
 	}
 }
+
+// 发送数据当前连接
+func (w *WsConnOb) SendSelf(raw []byte, dbRaw ...[]byte) {
+	ob := SendOb{
+		Id:  w.Id,
+		Raw: raw,
+	}
+	if config.WS.Persistence && len(dbRaw) > 0 {
+		ob.pid = getRandomString(6)
+		persistence[ob.pid] = dbRaw[0]
+	}
+	w.outChan <- ob
+}
