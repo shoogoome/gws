@@ -44,7 +44,7 @@ func (r *redisPool) Persistence(raw []byte) {
 
 	_, _ = po.Do("select", config.Redis.Db)
 
-	po.Do("rpush", config.WS.PersistenceKey, raw)
+	po.Do("rpush", config.WS.PersistenceKey, string(raw))
 }
 
 func initRedis() {
