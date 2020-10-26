@@ -27,6 +27,8 @@ type WsConfig struct {
 	MessageSize     int64
 	PingPeriod      time.Duration
 	PongWait        time.Duration
+	Persistence     bool
+	PersistenceKey  string
 }
 
 type RedisConfig struct {
@@ -39,6 +41,7 @@ type RedisConfig struct {
 type SendOb struct {
 	Id  string
 	Raw []byte
+	pid string // 持久化id
 }
 
 type sendResponse struct {

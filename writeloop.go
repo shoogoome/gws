@@ -36,6 +36,12 @@ func (w *WsConnOb) writeLoop() {
 func sendLocal(w *WsConnOb, sendOb SendOb) {
 	if err := w.connect.WriteMessage(websocket.TextMessage, sendOb.Raw); err != nil {
 		// TODO log
+		return
+	}
+
+	// 持久化数据
+	if config.WS.Persistence {
+		persistence.do(sendOb.pid)
 	}
 }
 

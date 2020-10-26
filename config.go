@@ -16,6 +16,8 @@ func init() {
 			MessageSize:     1024,
 			PingPeriod:      6 * 9 * time.Second,
 			PongWait:        60 * time.Second,
+			Persistence:     true,
+			PersistenceKey:  "websocket:persistence",
 		},
 		Redis: RedisConfig{
 			Host: "127.0.0.1:2379",

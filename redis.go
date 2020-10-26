@@ -38,6 +38,15 @@ func (r *redisPool) SetHost(id string, host string) {
 	po.Do("set", fmt.Sprintf(dnsKey, id), host)
 }
 
+func (r *redisPool) Persistence(raw []byte) {
+	po := r.pool.Get()
+	defer po.Close()
+
+	_, _ = po.Do("select", config.Redis.Db)
+
+	po.Do("rpush", config.WS.PersistenceKey, raw)
+}
+
 func initRedis() {
 	redisCtl = redisPool{
 		pool: &redis.Pool{
