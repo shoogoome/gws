@@ -48,15 +48,19 @@ func sendLocal(w *WsConnOb, sendOb SendOb) {
 // 跨主机通讯
 func sendNetwork(sendOb SendOb, first bool) {
 	if host, ok := dns[sendOb.Id]; ok {
-		response, err := requests(host, sendOb)
-		if err != nil {
-			// TODO log
+		for {
+			response, err := requests(host, sendOb)
+			if err != nil {
+				log("send network error: ", err)
+				break
+			}
+			if !response.Status {
+				log("send network status false")
+				break
+			}
+			// 正常结束
+			return
 		}
-		if !response.Status {
-			// TODO response.Msg
-		}
-		// 正常结束
-		return
 	}
 	// 查不到或者上面过程出现问题则从redis
 	// 更新dns信息并重新请求
@@ -64,7 +68,7 @@ func sendNetwork(sendOb SendOb, first bool) {
 		updateDns(sendOb.Id)
 		sendNetwork(sendOb, false)
 	} else {
-		// TODO log
+		log("二次跨主机通讯失败（已更新dns）")
 	}
 }
 
@@ -74,6 +78,6 @@ func updateDns(id string) {
 	if ok {
 		dns[id] = host
 	} else {
-		// TODO log
+		log("更新dns记录失败")
 	}
 }

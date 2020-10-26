@@ -15,6 +15,7 @@ func (w *WsConnOb) readLoop() {
 		// 读一个message
 		_, data, err := w.connect.ReadMessage()
 		if err != nil {
+			log("读取ws数据错误：", err)
 			websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure)
 			w.close()
 			return

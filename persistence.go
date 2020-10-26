@@ -13,7 +13,7 @@ func (p _persistence) do(id string) {
 
 	v, ok := persistence[id]
 	if !ok {
-		// TODO log
+		log("数据落地：差无该数据: ", id)
 		return
 	}
 

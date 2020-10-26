@@ -12,4 +12,6 @@ func (w *WsConnOb) close() {
 		delete(conn, w.Id)
 		close(w.closeChan)
 	}
+
+	log("id: ", w.Id, "连接关闭")
 }

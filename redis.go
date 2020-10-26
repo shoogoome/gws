@@ -23,7 +23,7 @@ func (r *redisPool) GetHost(id string) (string, bool) {
 
 	host, err := redis.String(po.Do("get", fmt.Sprintf(dnsKey, id)))
 	if err != nil || len(host) == 0 {
-		// TODO log
+		log("get host error: ", err)
 		return "", false
 	}
 	return host, true
@@ -61,7 +61,7 @@ func initRedis() {
 func dial() (redis.Conn, error) {
 	c, err := redis.Dial("tcp", config.Redis.Host)
 	if err != nil {
-		// TODO log
+		log("redis connect failed: ", err)
 		time.Sleep(time.Second * 5)
 		return dial()
 	}
