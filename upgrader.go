@@ -2,6 +2,7 @@ package ws
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/gorilla/websocket"
 )
@@ -40,8 +41,7 @@ func (u wu) Upgrade(w http.ResponseWriter, r *http.Request, responseHeader http.
 		closeChan: make(chan struct{}),
 	}
 
-	redisCtl.SetHost(wsId, os.GetEnv("HOSTNAME"))
-	go connOb.processLoop()
+	redisCtl.SetHost(wsId, os.Getenv("HOSTNAME"))
 	go connOb.writeLoop()
 	go connOb.readLoop()
 
