@@ -10,7 +10,7 @@ func (w *WsConnOb) BatchSend(raw []byte, ids ...string) {
 	for _, id := range ids {
 		w.outChan <- SendOb{
 			Id:  id,
-			raw: raw,
+			Raw: raw,
 		}
 	}
 }
