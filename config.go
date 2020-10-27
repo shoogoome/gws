@@ -14,7 +14,7 @@ func init() {
 			InChanLength:    500,
 			OutChanLength:   500,
 			MessageSize:     1024,
-			PingPeriod:      6 * 9 * time.Second,
+			PingPeriod:      10 * time.Second,
 			PongWait:        60 * time.Second,
 			Persistence:     true,
 			PersistenceKey:  "websocket:persistence",
