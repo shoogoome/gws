@@ -36,7 +36,7 @@ func (w *WsConnOb) writeLoop() {
 // 本地通讯
 func sendLocal(w *WsConnOb, sendOb SendOb) {
 	if err := w.connect.WriteMessage(websocket.TextMessage, sendOb.Raw); err != nil {
-		// TODO log
+		log("send local error: ", err)
 		return
 	}
 
