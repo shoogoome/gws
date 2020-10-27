@@ -25,6 +25,7 @@ func (w *WsConnOb) writeLoop() {
 		case <-ticker.C:
 			w.connect.SetWriteDeadline(time.Now().Add(writeWait))
 			if err := w.connect.WriteMessage(websocket.PingMessage, nil); err != nil {
+				log("?????? ", err)
 				w.close()
 				return
 			}
