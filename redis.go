@@ -66,9 +66,11 @@ func dial() (redis.Conn, error) {
 		return dial()
 	}
 
-	if _, err := c.Do("AUTH", config.Redis.Password); err != nil {
-		c.Close()
-		panic(err)
+	if len(config.Redis.Password) > 0 {
+		if _, err := c.Do("AUTH", config.Redis.Password); err != nil {
+			c.Close()
+			panic(err)
+		}
 	}
 	return c, err
 }
