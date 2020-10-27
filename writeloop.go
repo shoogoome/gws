@@ -15,7 +15,9 @@ func (w *WsConnOb) writeLoop() {
 	for {
 		select {
 		case sendOb := <-w.outChan:
+			log("来了 来了", sendOb)
 			if wc, ok := conn[sendOb.Id]; ok {
+				log("本地本地", wc.Id)
 				sendLocal(wc, sendOb)
 			} else {
 				sendNetwork(sendOb, true)
@@ -28,6 +30,8 @@ func (w *WsConnOb) writeLoop() {
 				log("?????? ", err)
 				w.close()
 				return
+			} else {
+				log("!!!!!")
 			}
 		}
 	}
@@ -38,6 +42,8 @@ func sendLocal(w *WsConnOb, sendOb SendOb) {
 	if err := w.connect.WriteMessage(websocket.TextMessage, sendOb.Raw); err != nil {
 		log("send local error: ", err)
 		return
+	} else {
+		log("本地发送成功!")
 	}
 
 	// 持久化数据
