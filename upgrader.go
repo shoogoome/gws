@@ -46,5 +46,6 @@ func (u wu) Upgrade(w http.ResponseWriter, r *http.Request, responseHeader http.
 	go connOb.readLoop()
 
 	conn[wsId] = &connOb
+	log("id: ", wsId, " connect success")
 	return &connOb, err
 }
