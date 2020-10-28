@@ -1,8 +1,6 @@
 package ws
 
 import (
-	"time"
-
 	"github.com/gorilla/websocket"
 )
 
@@ -10,7 +8,7 @@ import (
 func (w *WsConnOb) readLoop() {
 
 	w.connect.SetReadLimit(config.WS.MessageSize)
-	w.connect.SetReadDeadline(time.Now().Add(config.WS.PongWait))
+	// w.connect.SetReadDeadline(time.Now().Add(config.WS.PongWait))
 	for {
 		// 读一个message
 		_, data, err := w.connect.ReadMessage()
