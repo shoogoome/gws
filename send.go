@@ -37,8 +37,5 @@ func (w *WsConnOb) SendSelf(raw []byte, dbRaw ...[]byte) {
 		ob.pid = getRandomString(6)
 		persistence[ob.pid] = dbRaw[0]
 	}
-	log("send self")
-	log("wsid", w.Id)
 	w.outChan <- ob
-	log("<- over")
 }
