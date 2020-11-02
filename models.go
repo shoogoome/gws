@@ -29,6 +29,7 @@ type WsConfig struct {
 	PongWait        time.Duration
 	Persistence     bool
 	PersistenceKey  string
+	HostKey         string
 }
 
 type RedisConfig struct {

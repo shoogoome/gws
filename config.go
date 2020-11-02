@@ -18,6 +18,7 @@ func init() {
 			PongWait:        60 * time.Second,
 			Persistence:     true,
 			PersistenceKey:  "websocket:persistence",
+			HostKey:         "POD_OWN_IP_ADDRESS",
 		},
 		Redis: RedisConfig{
 			Host: "127.0.0.1:2379",

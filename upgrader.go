@@ -41,7 +41,7 @@ func (u wu) Upgrade(w http.ResponseWriter, r *http.Request, responseHeader http.
 		closeChan: make(chan struct{}),
 	}
 
-	redisCtl.SetHost(wsId, os.Getenv("HOSTNAME"))
+	redisCtl.SetHost(wsId, os.Getenv(config.WS.HostKey))
 	go connOb.writeLoop()
 	go connOb.readLoop()
 
