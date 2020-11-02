@@ -23,7 +23,7 @@ func (r *redisPool) GetHost(id string) (string, bool) {
 
 	host, err := redis.String(po.Do("get", fmt.Sprintf(dnsKey, id)))
 	if err != nil || len(host) == 0 {
-		log("get host error: ", err)
+		log("get host error: ", err, fmt.Sprintf(dnsKey, id))
 		return "", false
 	}
 	return host, true
