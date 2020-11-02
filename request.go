@@ -1,10 +1,10 @@
 package ws
 
 import (
+	"bytes"
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
-	"io"
 	"io/ioutil"
 	"net/http"
 )
@@ -17,8 +17,8 @@ func requests(host string, ob SendOb) (sendResponse, error) {
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
 
-	var reader io.Reader
-	json.NewDecoder(reader).Decode(ob)
+	r, _ := json.Marshal(ob)
+	reader := bytes.NewReader(r)
 
 	client := &http.Client{Transport: tr}
 	request, _ := http.NewRequest(
