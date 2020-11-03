@@ -20,6 +20,10 @@ func (w *WsConnOb) writeLoop() {
 			} else {
 				sendNetwork(sendOb, true)
 			}
+			// 持久化数据
+			if config.WS.Persistence {
+				persistence.do(sendOb.pid)
+			}
 		case <-w.closeChan:
 			return
 		case <-ticker.C:
@@ -37,11 +41,6 @@ func sendLocal(w *WsConnOb, sendOb SendOb) {
 	if err := w.connect.WriteMessage(websocket.TextMessage, sendOb.Raw); err != nil {
 		log("send local error: ", err)
 		return
-	}
-
-	// 持久化数据
-	if config.WS.Persistence {
-		persistence.do(sendOb.pid)
 	}
 }
 
