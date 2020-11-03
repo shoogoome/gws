@@ -21,7 +21,7 @@ func (w *WsConnOb) writeLoop() {
 				sendNetwork(sendOb, true)
 			}
 			// 持久化数据
-			if config.WS.Persistence {
+			if config.WS.Persistence && len(sendOb.pid) > 0 {
 				persistence.do(sendOb.pid)
 			}
 		case <-w.closeChan:
