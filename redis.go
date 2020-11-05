@@ -35,7 +35,7 @@ func (r *redisPool) SetHost(id string, host string) {
 
 	_, _ = po.Do("select", config.Redis.Db)
 
-	po.Do("set", fmt.Sprintf(dnsKey, id), host, "EX", "172800")
+	po.Do("set", fmt.Sprintf(dnsKey, id), host, "EX", "86400")
 }
 
 func (r *redisPool) Persistence(raw []byte) {
