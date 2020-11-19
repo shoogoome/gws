@@ -67,7 +67,7 @@ func sendNetwork(sendOb SendOb, first bool) {
 		updateDns(sendOb.Id)
 		sendNetwork(sendOb, false)
 	} else {
-		log("二次跨主机通讯失败（已更新dns）")
+		log("二次跨主机通讯失败（已更新dns）", sendOb.Id)
 	}
 }
 
