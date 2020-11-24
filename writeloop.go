@@ -77,6 +77,6 @@ func updateDns(id string) {
 	if ok {
 		dns[id] = host
 	} else {
-		log("更新dns记录失败")
+		log("更新dns记录失败", id)
 	}
 }
